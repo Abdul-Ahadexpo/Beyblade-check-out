@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <!-- Contact Section -->
+  <div class="contact-container">
+    <form action="https://api.web3forms.com/submit" method="POST" class="contact-left">
+      <div class="contact-left-title">
+        <h2>Send order</h2> <!-- You can change this header as needed -->
+        <hr>
+      </div>
+      <input type="hidden" name="access_key" value="d317d2c3-a976-4379-a724-91aad18a1052">
+      <input type="text" name="name" placeholder="Your Name" class="contact-inputs" required>
+      <input type="number" name="number" placeholder="Your Number" class="contact-inputs" required>
+      <textarea name="message" placeholder="Your Location(in details) and Which Beyblade/Product do you want"
+        class="contact-inputs" required></textarea>
+      <button type="submit">Send Order</button>
+    </form>
+    <div class="contact-right">
+      <img src="assets/right-img.png" alt="Cool BG image">
+    </div>
+  </div>
+</body>
+
+</html>
