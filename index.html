@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
+  <title>Order</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -13,20 +13,138 @@
   <div class="contact-container">
     <form action="https://api.web3forms.com/submit" method="POST" class="contact-left">
       <div class="contact-left-title">
-        <h2>Send order</h2> <!-- You can change this header as needed -->
+        <h2>Send order</h2>
         <hr>
+        <p>#We will Contact you to confirm your order</p>
       </div>
       <input type="hidden" name="access_key" value="263c1df5-fd55-4f57-8704-15a2659d3cee">
-      <input type="text" name="name" placeholder="Your Name" class="contact-inputs" required>
-      <input type="number" name="number" placeholder="Your Number" class="contact-inputs" required>
-      <textarea name="message" placeholder="Your Location(in details) and Which Beyblade/Product do you want"
-        class="contact-inputs" required></textarea>
-      <button type="submit">Send Order</button>
+
+      <input type="text" name="name" placeholder="Your Name" class="contact-inputs" id="nam" required>
+
+      <input type="number" name="number" placeholder="Your Number" class="contact-inputs" id="num" required>
+
+      <div class="select-container">
+        <button type="button" class="select-button la" onclick="openModal()">Select Products</button>
+        <input type="hidden" name="Product" id="pro-sel-hidden">
+      </div>
+
+      <textarea name="message" placeholder="~First Select a product then put ur location~
+      
+put it here.. (>O//_//O)>
+Location:-------
+Product name:-----" class="contact-inputs" id="txtbox" required></textarea>
+
+      <button class="bbtn" type="submit">Send Order</button>
     </form>
     <div class="contact-right">
-      <img src="assets/right-img.png" alt="Cool BG image">
+      <img src="assets/right-img.png" alt="A girl crying for a Beyblade X Dransword" class="gl">
     </div>
   </div>
+
+  <div class="pc-none">
+    <button class="dplay-none" type="button"
+      onclick="location.href='https://www.facebook.com/profile.php?id=100089129497483'">Your phone Screen is really
+      small~<br>
+      <p>OR Click me and go to our facebook Page</p>
+    </button>
+  </div>
+
+  <!-- Modal for product selection -->
+  <div id="product-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2>Select Products</h2>
+      <div id="product-list">
+        <!-- Products will be dynamically added here -->
+      </div>
+      <button class="con-button" type="button" onclick="updateTotalModal()">Confirm Selection</button>
+    </div>
+  </div>
+
+  <script>
+    const products = [
+      { name: 'Dransword', price: 580 },
+      { name: 'Shark-Edge', price: 600 },
+      { name: 'Cobalt-Drake', price: 600 },
+      { name: 'X String-Launcher', price: 550 },
+      { name: 'Galaxy-Pegasus', price: 600 },
+      { name: 'Basalt-Horogium', price: 520 },
+      { name: 'Divine-Fox', price: 460 },
+      { name: 'Fusion Hades', price: 550 },
+      { name: 'Cyber Pegasus', price: 500 },
+      { name: 'Metal TT String Launcher', price: 480 },
+      { name: 'Flash Sagittario', price: 460 },
+      { name: 'Burst Spriggan', price: 500 },
+      { name: 'Ultimate Valkyrie', price: 500 },
+      { name: 'Tempest Dragon', price: 600 },
+      { name: 'Roar Bahamut', price: 500 },
+      { name: 'Master Diabolos', price: 600 },
+      { name: 'Infinite Achilles', price: 500 },
+      { name: 'DB Launcher LR', price: 400 }
+    ];
+
+    function openModal() {
+      const modal = document.getElementById('product-modal');
+      const productList = document.getElementById('product-list');
+      productList.innerHTML = ''; // Clear previous content
+
+      products.forEach(product => {
+        const productItem = document.createElement('div');
+        productItem.className = 'product-item';
+        productItem.innerHTML = `
+      <span>${product.name} - ${product.price}TK</span>
+      <button type="button" onclick="addProduct('${product.name}', ${product.price})">+</button>
+    `;
+        productList.appendChild(productItem);
+      });
+
+      modal.style.display = 'block';
+    }
+
+    function closeModal() {
+      document.getElementById('product-modal').style.display = 'none';
+    }
+
+    function addProduct(name, price) {
+      const selectedProducts = document.getElementById('pro-sel-hidden');
+      const messageBox = document.getElementById('txtbox');
+      const productNames = selectedProducts.value ? selectedProducts.value.split(', ') : [];
+
+      if (!productNames.includes(name)) {
+        productNames.push(name);
+        selectedProducts.value = productNames.join(', ');
+
+        // Update textarea with selected products and total price
+        updateTotalPrice(productNames);
+      }
+    }
+
+    function updateTotalPrice(productNames) {
+      let total = 0;
+
+      productNames.forEach(name => {
+        const product = products.find(p => p.name === name);
+        if (product) {
+          total += product.price;
+        }
+      });
+
+      const messageBox = document.getElementById('txtbox');
+      const locationPlaceholder = "Location:";
+      const productNamePlaceholder = "Product name: " + productNames.join(", ");
+
+      messageBox.value = `\n\n${locationPlaceholder}\n${productNamePlaceholder}\nTotal Price: ${total}TK`;
+    }
+
+    function updateTotalModal() {
+      const select = document.getElementById('pro-sel-hidden');
+      const productNames = select.value.split(', ');
+
+      // Update the textarea with the total price and selected products
+      updateTotalPrice(productNames);
+      closeModal();
+    }
+  </script>
 </body>
 
 </html>
