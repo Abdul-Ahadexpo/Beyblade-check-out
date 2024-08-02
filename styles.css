@@ -253,7 +253,7 @@ body {
   display: none;
 }
 
-@media screen and (max-width: 321px) {
+@media screen and (max-width: 318px) {
   body .contact-right,
   .contact-container,
   .contact-inputs {
@@ -284,5 +284,10 @@ body {
 
   .pc-none {
     display: block;
+  }
+}
+@media screen and (max-width: 320px) {
+  .bbtn {
+    width: 55%;
   }
 }
